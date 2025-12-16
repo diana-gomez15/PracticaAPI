@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using RawGames.Views;
+using RawPostres.Views;
 using RawPostres.Services;
 using RawPostres.ViewModel;
+
 namespace PracticaAPI
 {
     public static class MauiProgram
@@ -18,7 +19,7 @@ namespace PracticaAPI
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             // Registrar servicios
             builder.Services.AddSingleton<PostresApiService>();
@@ -27,7 +28,7 @@ namespace PracticaAPI
             builder.Services.AddSingleton<PostreListViewModel>();
 
             // Registrar Views
-            builder.Services.AddSingleton<GameListPage>();
+            builder.Services.AddSingleton<PostreListPage>();
 
             return builder.Build();
         }

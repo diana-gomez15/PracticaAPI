@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticaAPI.MainPage"
+              Title="Bienvenido">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,40"
+            Spacing="25"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="160"
+                Aspect="AspectFit" />
+
+            <Label
+                Text="🍰 Raw Postres"
+                Style="{StaticResource Headline}"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                Text="Explora una lista de postres consumidos desde una API REST"
+                Style="{StaticResource SubHeadline}"
+                HorizontalTextAlignment="Center" />
+
+            <Button
+                Text="Ver Postres"
+                HorizontalOptions="Fill"
+                Clicked="OnGoToPostresClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

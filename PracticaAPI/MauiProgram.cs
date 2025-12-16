@@ -21,8 +21,8 @@ namespace PracticaAPI
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            // Registrar servicios
-            builder.Services.AddSingleton<PracticaAPIService>();
+            // Registrar servicios 
+            builder.Services.AddSingleton<PostresApiService>();
 
             // Registrar ViewModels
             builder.Services.AddSingleton<PostreListViewModel>();

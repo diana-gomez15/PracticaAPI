@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using RawPostres.Model;
 
-namespace PracticaAPI.Services
+namespace RawPostres.Services
 {
     public class PostresApiService
     {

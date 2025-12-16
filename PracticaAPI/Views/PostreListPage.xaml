@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:RawPostres.ViewModel"
              xmlns:model="clr-namespace:RawPostres.Model"
-             x:Class="RawGames.Views.GameListPage"
+             x:Class="RawPostres.Views.PostreListPage"
              x:DataType="viewModel:PostreListViewModel"
              Title="Postres">
 

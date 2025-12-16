@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using RawPostres.Views;
+using RawPostres.Views;  // ✅ Cambia RawGames a RawPostres
 using RawPostres.Services;
 using RawPostres.ViewModel;
 
@@ -27,7 +27,7 @@ namespace PracticaAPI
             // Registrar ViewModels
             builder.Services.AddSingleton<PostreListViewModel>();
 
-            // Registrar Views
+            // Registrar Views - ✅ CAMBIA ESTA LÍNEA
             builder.Services.AddSingleton<PostreListPage>();
 
             return builder.Build();

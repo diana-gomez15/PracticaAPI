@@ -36,24 +36,18 @@
                                HasShadow="True"
                                BorderColor="Transparent">
 
-                            <Grid RowDefinitions="200,auto" ColumnDefinitions="*">
+                            <Grid RowDefinitions="200,auto">
 
                                 <!-- Imagen del postre -->
                                 <Image Grid.Row="0"
                                        Source="{Binding Imagen}"
                                        Aspect="AspectFill"
-                                       HeightRequest="200">
-                                    <Image.Clip>
-                                        <RoundRectangleGeometry
-                                            CornerRadius="10,10,0,0"
-                                            Rect="0,0,1000,200"/>
-                                    </Image.Clip>
-                                </Image>
+                                       HeightRequest="200"/>
 
                                 <!-- Overlay del precio -->
                                 <Frame Grid.Row="0"
                                        BackgroundColor="#CC000000"
-                                       Padding="8.4"
+                                       Padding="8"
                                        CornerRadius="5"
                                        HasShadow="False"
                                        HorizontalOptions="End"
@@ -70,7 +64,7 @@
                                        Text="{Binding Nombre}"
                                        FontSize="18"
                                        FontAttributes="Bold"
-                                       Margin="10,10,10,10"
+                                       Margin="10"
                                        LineBreakMode="TailTruncation"
                                        MaxLines="2"/>
                             </Grid>

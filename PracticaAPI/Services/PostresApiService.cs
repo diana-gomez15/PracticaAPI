@@ -1,5 +1,6 @@
 using System;
-using System.Text.Json;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using RawPostres.Model;
 
@@ -7,79 +8,93 @@ namespace RawPostres.Services
 {
     public class PostresApiService
     {
-        private readonly HttpClient _httpClient;
-        private readonly JsonSerializerOptions _jsonOptions;
-
-#if ANDROID
-        private const string BaseUrl = "http://10.0.2.2:3000/api";
-#else
-        private const string BaseUrl = "http://localhost:3000/api";
-#endif
-
-        public PostresApiService()
-        {
-            _httpClient = new HttpClient
-            {
-                Timeout = TimeSpan.FromSeconds(30)
-            };
-
-            _jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-        }
-
         public async Task<PostresResponse?> GetPostresAsync()
         {
-            try
-            {
-                var url = $"{BaseUrl}/postres";
-                Console.WriteLine($"🔍 Fetching from: {url}");
+            await Task.Delay(300);
 
-                var response = await _httpClient.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"✅ Response: {json}");
-                    return JsonSerializer.Deserialize<PostresResponse>(json, _jsonOptions);
-                }
-                else
-                {
-                    Console.WriteLine($"❌ Error: {response.StatusCode}");
-                    return null;
-                }
-            }
-            catch (Exception ex)
+            var postres = new List<Postre>
             {
-                Console.WriteLine($"❌ Exception: {ex.Message}");
-                return null;
-            }
+                new Postre
+                {
+                    Id = 1,
+                    Nombre = "Tiramisú",
+                    Imagen = "tiramisu.jpg",
+                    Precio = 85.50m
+                },
+                new Postre
+                {
+                    Id = 2,
+                    Nombre = "Cheesecake de Fresa",
+                    Imagen = "cheesecake_fresa.jpg",
+                    Precio = 95.00m
+                },
+                new Postre
+                {
+                    Id = 3,
+                    Nombre = "Brownie con Helado",
+                    Imagen = "brownie_helado.jpg",
+                    Precio = 75.00m
+                },
+                new Postre
+                {
+                    Id = 4,
+                    Nombre = "Tarta de Limón",
+                    Imagen = "tarta_limon.jpg",
+                    Precio = 80.00m
+                },
+                new Postre
+                {
+                    Id = 5,
+                    Nombre = "Flan Napolitano",
+                    Imagen = "flan_napolitano.jpg",
+                    Precio = 65.00m
+                },
+                new Postre
+                {
+                    Id = 6,
+                    Nombre = "Mousse de Chocolate",
+                    Imagen = "mousse_chocolate.jpg",
+                    Precio = 70.00m
+                },
+                new Postre
+                {
+                    Id = 7,
+                    Nombre = "Tres Leches",
+                    Imagen = "tres_leches.jpg",
+                    Precio = 90.00m
+                },
+                new Postre
+                {
+                    Id = 8,
+                    Nombre = "Macarons Franceses",
+                    Imagen = "macarons.jpg",
+                    Precio = 120.00m
+                }
+            };
+
+            return new PostresResponse
+            {
+                Count = postres.Count,
+                Results = postres
+            };
         }
 
         public async Task<PostresResponse?> SearchPostresAsync(string query)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(query))
-                    return await GetPostresAsync();
+            var response = await GetPostresAsync();
 
-                var url = $"{BaseUrl}/postres/search?nombre={Uri.EscapeDataString(query)}";
-                var response = await _httpClient.GetAsync(url);
+            if (string.IsNullOrWhiteSpace(query))
+                return response;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<PostresResponse>(json, _jsonOptions);
-                }
-                return null;
-            }
-            catch (Exception ex)
+            var filtered = response.Results
+                .Where(p => p.Nombre.Contains(query, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            return new PostresResponse
             {
-                Console.WriteLine($"Error searching: {ex.Message}");
-                return null;
-            }
+                Count = filtered.Count,
+                Results = filtered
+            };
         }
     }
 }
-
